@@ -1,0 +1,69 @@
+/*----------------------------------------*/
+/* BASIC SETUP */
+/*----------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    padding: 2% 2% 0 8%;
+    background-color: rgb(180, 180, 180,.1);
+}
+
+/*----------------------------------------*/
+/* COMMON */
+/*----------------------------------------*/
+
+p{
+    font-size: 70%;
+    color: rgb(50, 50, 50,.7);
+}
+
+#tables-list, #menu-list{
+    height: 70vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#tables-list:hover, #menu-list:hover{
+    overflow-y: visible;
+}
+
+.menu-heading, .table-heading{
+    text-transform: capitalize;
+}
+
+/*----------------------------------------*/
+/* TABLES */
+/*----------------------------------------*/
+
+#tables{
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: top;
+}
+
+.table-container:nth-child(odd){
+    background-color: rgb(50, 50, 50,.7);
+}
+
+.table-container{
+    padding: 8px 0 .1px 12px;
+}
+
+/*----------------------------------------*/
+/* MENU */
+/*----------------------------------------*/
+
+#menu{
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+}
+
+.menu-container{
+    padding: 8px 0 4px 18px;
+}
