@@ -7,32 +7,36 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     padding: 2% 2% 0 8%;
-    background-color: rgb(180, 180, 180,.1);
+    background-color: rgb(180, 180, 180, .2);
 }
 
 /*----------------------------------------*/
 /* COMMON */
 /*----------------------------------------*/
 
-p{
+
+p {
     font-size: 70%;
-    color: rgb(50, 50, 50,.7);
+    color: rgb(50, 50, 50, .7);
 }
 
-#tables-list, #menu-list{
+#tables-list,
+#menu-list {
     height: 70vh;
     overflow: scroll;
     overflow-x: hidden;
     overflow-y: hidden;
 }
 
-#tables-list:hover, #menu-list:hover{
+#tables-list:hover,
+#menu-list:hover {
     overflow-y: visible;
 }
 
-.menu-heading, .table-heading{
+.menu-heading,
+.table-heading {
     text-transform: capitalize;
 }
 
@@ -40,30 +44,98 @@ p{
 /* TABLES */
 /*----------------------------------------*/
 
-#tables{
+#tables {
     display: inline-block;
     margin-right: 20px;
     vertical-align: top;
 }
 
-.table-container:nth-child(odd){
-    background-color: rgb(50, 50, 50,.7);
+.table-container:nth-child(odd) {
+    background-color: rgb(50, 50, 50, .7);
 }
 
-.table-container{
+.table-container {
     padding: 8px 0 .1px 12px;
+    cursor: pointer;
+}
+
+#table-name {
+    text-transform: capitalize;
+}
+
+.table-view {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 10vh;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+.table-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 1000px;
+    border-radius: 8px;
+    padding-bottom: 70px;
+}
+
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+td {
+    text-transform: capitalize;
+}
+
+button {
+    float: right;
+}
+
+img{
+    cursor: pointer;
+}
+
+.menu-items h7{
+    padding-left: 280px;
 }
 
 /*----------------------------------------*/
 /* MENU */
 /*----------------------------------------*/
 
-#menu{
+#menu {
     display: inline-block;
     vertical-align: top;
     width: 50%;
 }
 
-.menu-container{
+.menu-container {
     padding: 8px 0 4px 18px;
 }

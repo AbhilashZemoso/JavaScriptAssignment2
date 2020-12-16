@@ -39,6 +39,16 @@ function getDefaultTable(id) {
             this.totalCost += menuItem.cost;
             this.totalItems += 1;
         },
+        addItemById: function (theId) {
+            const ind = this.findItemById(theId);
+            const menuItem = this.cart[ind].menuItem;
+
+            if ( ind!= -1) {
+                this.cart[ind].quantity += 1;
+            }
+            this.totalCost += menuItem.cost;
+            this.totalItems += 1;
+        },
         findItemById: function (theId) {
             let index;
             for (index = 0; index < this.cart.length; index++) {
@@ -51,7 +61,7 @@ function getDefaultTable(id) {
         removeItemById: function (theId) {
             const ind = this.findItemById(theId);
             if (ind != -1) {
-                this.totalCost += this.cart[ind]['menuItem'].cost;
+                this.totalCost -= this.cart[ind]['menuItem'].cost;
                 this.totalItems -= 1;
                 if (this.cart[ind]['quantity'] == 1) {
                     this.cart.splice(ind, 1);
@@ -59,6 +69,19 @@ function getDefaultTable(id) {
                     this.cart[ind]['quantity'] -= 1;
                 }
             }
+        },
+        deleteItemById: function (theId) {
+            const ind = this.findItemById(theId);
+            if (ind != -1) {
+                this.totalCost -= this.cart[ind]['menuItem'].cost*this.cart[ind]['quantity'];
+                this.totalItems -= this.cart[ind]['quantity'];
+                this.cart.splice(ind, 1);
+            }
+        },
+        resetTable:function(){
+            this.cart = [];
+            this.totalCost =0;
+            this.totalItems =0;
         }
     }
     return table;
@@ -128,6 +151,11 @@ function createTableItem(table) {
         table.addItem(menuItem);
         renderTables();
     });
+    
+    tableDiv.addEventListener("click",()=>{
+        document.querySelector(".table-view").style.display = "block";
+        generateItems(table);
+    });
 
     const headingDiv = document.createElement('div');
     headingDiv.classList.add('table-heading');
@@ -147,6 +175,120 @@ function createTableItem(table) {
     tableDiv.appendChild(detailsDiv);
 
     return tableDiv;
+}
+
+//<button class="btn btn-outline-success">Generate Bill</button>
+
+function generateItems(theTable){
+    const tableNameContent = document.querySelector("#table-name");
+    tableNameContent.innerHTML = theTable.name;
+
+    const totalAmount = document.querySelector('#total-amount');
+    const tableConent = document.querySelector('#cart-list');
+    const billContent = document.querySelector('#generate-bill');    
+
+    tableConent.innerHTML = '';
+    billContent.innerHTML = '';
+
+    const generateBill = document.createElement('button');
+    generateBill.classList.add("btn","btn-outline-success");
+    generateBill.innerHTML = 'Generate Bill';
+    generateBill.addEventListener('click',function(){
+        theTable.resetTable();
+        closeTableView();
+        renderTables();
+    });
+
+    billContent.appendChild(generateBill);
+
+    let serialNo = 1;
+    theTable.cart.forEach((item)=>{
+        const newRow = document.createElement('tr');
+        const serailNoContent =document.createElement('td');
+        const itemName = document.createElement('td');
+        const itemPrice = document.createElement('td');
+        const itemQuantity = document.createElement('td');
+        const itemDelete = document.createElement('td');
+
+        const menuItem = item.menuItem;
+
+        const quantityContent = getQuantityContent(theTable,menuItem.id,item.quantity);
+        const deleteContent = getDeleteContent(theTable,menuItem.id);
+
+        newRow.setAttribute('index',serialNo-1);
+
+        serailNoContent.innerHTML = serialNo;
+        itemName.innerHTML = menuItem.name;
+        itemPrice.innerHTML = menuItem.cost*item.quantity;
+        itemQuantity.appendChild(quantityContent);
+        itemDelete.appendChild(deleteContent);
+
+        newRow.appendChild(serailNoContent);
+        newRow.appendChild(itemName);
+        newRow.appendChild(itemPrice);
+        newRow.appendChild(itemQuantity);
+        newRow.appendChild(itemDelete);
+
+        tableConent.appendChild(newRow);
+
+        serialNo ++;
+    });
+
+    totalAmount.innerHTML = theTable.totalCost;
+}
+/*
+<td>
+    <span class="def-number-input number-input safari_only">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+        <input class="quantity" min="0" name="quantity" value="1" type="number">
+        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+    </span>
+</td>
+<td>
+    <img src="vendors/icons/delete-big.png">
+</td>
+*/
+function getQuantityContent(theTable,theId,theQuantity){
+    const span = document.createElement('span');
+    span.classList.add('def-number-input','number-input','safari-only')
+
+    const minus = document.createElement('button');
+    minus.className="minus";
+    minus.addEventListener('click',function(event){        
+        theTable.removeItemById(theId);
+        generateItems(theTable);
+    });
+    
+    const input = document.createElement('input');
+    input.className="quantity";
+    input.name="quantity";
+    input.value =theQuantity;
+    input.type = 'number';
+
+    const plus = document.createElement('button');
+    plus.className="plus";
+    plus.addEventListener('click',function(event){
+        theTable.addItemById(theId);
+        generateItems(theTable);
+    });
+
+    span.appendChild(minus);
+    span.appendChild(input);
+    span.appendChild(plus);
+
+    return span;
+}
+
+function getDeleteContent(theTable,theId){
+    const deleteImg = document.createElement('img');
+    deleteImg.src = "vendors/icons/delete-big.png";
+
+    deleteImg.addEventListener('click',function(event){
+        theTable.deleteItemById(theId);
+        generateItems(theTable);
+    });
+    
+    return deleteImg;
 }
 
 /*
@@ -237,4 +379,9 @@ function getMenuItemById(theId) {
         return false;
     });
     return newMenuList[0];
+}
+
+function closeTableView(){
+    document.querySelector('.table-view').style.display="none";
+    renderTables();
 }
