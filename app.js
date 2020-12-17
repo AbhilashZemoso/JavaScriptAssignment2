@@ -260,6 +260,7 @@ function getQuantityContent(theTable,theId,theQuantity){
     });
     
     const input = document.createElement('input');
+    input.readOnly = true;
     input.className="quantity";
     input.name="quantity";
     input.value =theQuantity;

@@ -50,6 +50,10 @@ p {
     vertical-align: top;
 }
 
+thead,tbody{
+    text-align: center;
+}
+
 .table-container:nth-child(odd) {
     background-color: rgb(50, 50, 50, .7);
 }
@@ -78,8 +82,6 @@ p {
     /* Full width */
     height: 100%;
     /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
 }
@@ -92,6 +94,10 @@ p {
     width: 1000px;
     border-radius: 8px;
     padding-bottom: 70px;
+    overflow: scroll;
+    max-height: 80vh;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 
@@ -125,6 +131,7 @@ img{
 .menu-items h7{
     padding-left: 280px;
 }
+
 
 /*----------------------------------------*/
 /* MENU */
