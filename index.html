@@ -21,7 +21,7 @@
                     aria-label="Search" id="tables-search-input" onkeyup="processSearchTable()">
             </form>
         </div>
-        <div id="tables-list">
+        <div id="tables-list" class="scroll">
             <!--
             <div table-id="id-value" class="table-container shadow-sm p-3 mb-2 bg-white rounded">
                 <div class="table-heading">
@@ -46,7 +46,7 @@
                     onkeyup="processSearchMenu()">
             </form>
         </div>
-        <div id="menu-list">
+        <div id="menu-list" class="scroll">
             <!--
             <div menu-id='id' draggable="true" class="menu-container shadow-sm p-2 mb-2 bg-white rounded">
                 <div class="menu-heading">
@@ -65,7 +65,7 @@
                 <span class="close" onclick="closeTableView()">&times;</span>
                 <h6><span id="table-name">Table Name</span> | Order Details</h6>
             </div>
-            <div class="menu-items">
+            <div class="menu-items scroll">
                 <table class="table">
                     <thead>
                         <tr>
@@ -79,9 +79,10 @@
                         
                     </tbody>
                 </table>
-                <h7>Total: Rs <span id="total-amount">0</span></h7>
-                <span id="generate-bill"></span>
             </div>
+
+            <h7>Total: Rs <span id="total-amount">0</span></h7>
+            <span id="generate-bill"></span>
         </div>
     </div>
 
