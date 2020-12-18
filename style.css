@@ -92,7 +92,8 @@ thead,tbody{
 }
 
 .menu-items{
-    height: 60vh;
+    min-height: 20vh;
+    max-height: 60vh;
     margin: 20px 0;
     padding-right: 15px;
 }
@@ -123,6 +124,10 @@ thead,tbody{
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.safari-only{
+    margin: 0 auto;
 }
 
 td {
